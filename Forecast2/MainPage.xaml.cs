@@ -1,5 +1,4 @@
-﻿using Forecast.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,10 +18,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Windows.UI.Popups;
+using Forecast2.Common;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
-namespace Forecast
+namespace Forecast2
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

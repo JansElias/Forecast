@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace Forecast
+namespace Forecast2
 {
     public class DateConverter : IValueConverter
     {
