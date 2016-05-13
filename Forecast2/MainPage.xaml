@@ -46,7 +46,7 @@
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
             <TextBlock Text="ELIAS' WEATHER FORECAST APP" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="het weer" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="the weather" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
 
@@ -62,13 +62,28 @@
                 <StackPanel>
 
                     <TextBlock FontSize="16">
-                		<Run Text="Geef gemeente  in:"/>
+                		<Run Text="Enter City:"/>
                     </TextBlock>
                     <TextBox x:Name="txtPlaats"   Text="{Binding id, Mode=TwoWay}"/>
+                    <Grid Grid.Row="1" x:Name="rbButtons">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                           
+                        </Grid.ColumnDefinitions>
+                       
+                        
+                        <RadioButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Celsius" x:Name="rbCelsius"  FontSize="20" IsChecked="True" Checked="rbCelsius_Checked" Click="rbCelsius_Click" />
+                        <RadioButton Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Content="Fahrenheit" x:Name="rbFahrenheit" Checked="rbFahrenheit_Checked" Click="rbFahrenheit_Click"/>
+                        <RadioButton Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Kelvin" x:Name="rbKelvin" Click="rbKelvin_Click" />
+                    </Grid>
 
 
-                    
-                   <Button x:Name="btnGetData" Content="OK" Click="btnGetData_Click" />
+                    <Button x:Name="btnGetData" Content="OK" Click="btnGetData_Click" />
                     
 
 
@@ -92,7 +107,7 @@
 
 
                     </StackPanel>
-                    <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="326">
+                    <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="202">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="8" Background="{x:Null}" Opacity="1" >

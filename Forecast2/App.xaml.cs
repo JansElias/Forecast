@@ -27,6 +27,14 @@ namespace Forecast2
     {
         private TransitionCollection transitions;
 
+        private static WeatherObject wo = new WeatherObject();
+
+        public static WeatherObject WO
+        {
+            get { return wo;}
+            set { wo=value;}
+        }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().

@@ -52,6 +52,7 @@ namespace Forecast2
         public int deg { get; set; }
         public int clouds { get; set; }
         public double? rain { get; set; }
+        public string tempMeter{ get; set;}
     }
 
     public class WeatherObject
@@ -61,5 +62,7 @@ namespace Forecast2
         public City city { get; set; }
         public int cnt { get; set; }
         public List<List> list { get; set; }
+        public string tempMeter { get; set; }
+        public string cityName { get; set; }
     }
 }

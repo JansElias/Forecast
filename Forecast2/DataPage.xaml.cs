@@ -69,10 +69,87 @@ namespace Forecast2
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
+        /// 
+
+
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
 
+
+            //try
+            //{
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        pbWeather.Visibility = Visibility.Visible;
+            //        client.BaseAddress = new Uri("http://api.openweathermap.org");
+
+            //        var url = "data/2.5/forecast/daily?q="+parameter+"&mode=json&units=metric&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
+
+            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //        HttpResponseMessage response = await client.GetAsync(String.Format(url));
+
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            var data = response.Content.ReadAsStringAsync();
+            //            var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
+
+            //            spWeatherInfo.DataContext = weatherdata;
+
+            //        }
+
+            //        pbWeather.Visibility = Visibility.Collapsed;
+
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageDialog dialog = new MessageDialog("Some Error Has Occured");
+            //    //await dialog.ShowAsync();
+            //    pbWeather.Visibility = Visibility.Collapsed;
+            //    //}
+
+
+
+            //}
+        }
+
+        /// <summary>
+        /// Preserves state associated with this page in case the application is suspended or the
+        /// page is discarded from the navigation cache.  Values must conform to the serialization
+        /// requirements of <see cref="SuspensionManager.SessionState"/>.
+        /// </summary>
+        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
+        /// <param name="e">Event data that provides an empty dictionary to be populated with
+        /// serializable state.</param>
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+        }
+
+        #region NavigationHelper registration
+
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// <para>
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </para>
+        /// </summary>
+        /// <param name="e">Provides data for navigation methods and event
+        /// handlers that cannot cancel the navigation request.</param>
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //this.navigationHelper.OnNavigatedTo(e);
+            //var parameter = e.Parameter;
+
+            var myList = e.Parameter as List<string>;
+
+            
 
             try
             {
@@ -81,7 +158,7 @@ namespace Forecast2
                     pbWeather.Visibility = Visibility.Visible;
                     client.BaseAddress = new Uri("http://api.openweathermap.org");
 
-                    var url = "data/2.5/forecast/daily?q=London&mode=json&units=metric&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
+                    var url = "data/2.5/forecast/daily?q=" + myList[0] + "&mode=json&units=" + myList[1] + "&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -112,43 +189,22 @@ namespace Forecast2
             }
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-        }
-
-        #region NavigationHelper registration
-
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            this.navigationHelper.OnNavigatedTo(e);
-        }
-
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedFrom(e);
+            //this.navigationHelper.OnNavigatedFrom(e);
+
+            var myList = e.Parameter as List<string>;
+
         }
 
+        //private void OnGoBackClicked(object sender, RoutedEventArgs e)
+        //{
+        //    if (Frame.CanGoBack)
+        //    {
+        //        Frame.GoBack();
+        //    }
+
+        //}
         #endregion
     }
 }

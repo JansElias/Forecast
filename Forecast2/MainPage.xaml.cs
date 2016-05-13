@@ -20,10 +20,14 @@ using Newtonsoft.Json;
 using Windows.UI.Popups;
 using Forecast2.Common;
 
+
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Forecast2
 {
+
+     
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -71,6 +75,28 @@ namespace Forecast2
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            if (App.WO.cityName != null)
+            {
+                txtPlaats.Text = App.WO.cityName;
+            }
+            else
+            {
+                txtPlaats.Text = "";
+            }
+
+            if (App.WO.tempMeter == "celsius")
+            {
+                rbCelsius.IsChecked = true;
+            }
+            if (App.WO.tempMeter == "imperial")
+            {
+                rbFahrenheit.IsChecked = true;
+            }
+            if (App.WO.tempMeter == "")
+            {
+                rbKelvin.IsChecked = true;
+            }
+            
         }
 
         /// <summary>
@@ -83,6 +109,7 @@ namespace Forecast2
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+            
         }
 
         #region NavigationHelper registration
@@ -115,9 +142,44 @@ namespace Forecast2
         private async void btnGetData_Click(object sender, RoutedEventArgs e)
         {
 
+            if (txtPlaats.Text == "")
+            {
+                MessageDialog msgbox = new MessageDialog("No city was found.");
+                await msgbox.ShowAsync();
+            }
+            else
+            {
+                App.WO.tempMeter = "celsius";
+
+                if (rbFahrenheit.IsChecked == true)
+                {
+                    App.WO.tempMeter = "imperial";
+                }
+                if (rbCelsius.IsChecked == true)
+                {
+                    App.WO.tempMeter = "metric";
+                }
+                if (rbKelvin.IsChecked == true)
+                {
+                    App.WO.tempMeter = "";
+                }
 
 
-            var city = txtPlaats.Text;
+                App.WO.cityName = txtPlaats.Text;
+
+                var myList = new List<string>()
+            {
+                App.WO.cityName,
+                App.WO.tempMeter,
+            };
+
+
+
+                Frame.Navigate(typeof(DataPage), myList);
+            }
+
+            
+
 
             //if (!Frame.Navigate(typeof(DataPage), city))
             //{
@@ -125,42 +187,42 @@ namespace Forecast2
             //}
 
 
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    pbWeather.Visibility = Visibility.Visible;
-                    client.BaseAddress = new Uri("http://api.openweathermap.org");
+            //try
+            //{
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        pbWeather.Visibility = Visibility.Visible;
+            //        client.BaseAddress = new Uri("http://api.openweathermap.org");
 
-                    var url = "data/2.5/forecast/daily?q="+city+"&mode=json&units=metric&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
+            //        var url = "data/2.5/forecast/daily?q="+city+"&mode=json&units="+tempMeter+"&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
 
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage response = await client.GetAsync(String.Format(url));
+            //        HttpResponseMessage response = await client.GetAsync(String.Format(url));
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var data = response.Content.ReadAsStringAsync();
-                        var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            var data = response.Content.ReadAsStringAsync();
+            //            var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
 
-                        spWeatherInfo.DataContext = weatherdata;
+            //            spWeatherInfo.DataContext = weatherdata;
 
-                    }
+            //        }
 
-                    pbWeather.Visibility = Visibility.Collapsed;
+            //        pbWeather.Visibility = Visibility.Collapsed;
 
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-                //await dialog.ShowAsync();
-                pbWeather.Visibility = Visibility.Collapsed;
-                //}
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageDialog dialog = new MessageDialog("Some Error Has Occured");
+            //    //await dialog.ShowAsync();
+            //    pbWeather.Visibility = Visibility.Collapsed;
+            //    //}
 
 
 
-            }
+            //}
 
 
 
@@ -175,5 +237,71 @@ namespace Forecast2
         {
 
         }
+
+        private void rbCelsius_Checked(object sender, RoutedEventArgs e)
+        {
+            //if (rbCelsius.IsChecked == true)
+            //{
+            //    rbFahrenheit.IsChecked = false;
+            //}
+            //else
+            //{
+            //    rbCelsius.IsChecked = true;
+            //}
+            
+        }
+
+        private void rbFahrenheit_Checked(object sender, RoutedEventArgs e)
+        {
+            //if (rbFahrenheit.IsChecked == true)
+            //{
+            //    rbCelsius.IsChecked = false;
+            //}
+            //else
+            //{
+            //    rbCelsius.IsChecked = true;
+            //}
+        }
+
+        private void rbCelsius_Click(object sender, RoutedEventArgs e)
+        {
+            if (rbCelsius.IsChecked == true)
+            {
+                rbFahrenheit.IsChecked = false;
+                rbKelvin.IsChecked = false;
+            }
+            else
+            {
+                rbCelsius.IsChecked = true;
+            }
+        }
+
+        private void rbFahrenheit_Click(object sender, RoutedEventArgs e)
+        {
+            if (rbFahrenheit.IsChecked == true)
+            {
+                rbCelsius.IsChecked = false;
+                rbKelvin.IsChecked = false;
+            }
+            else
+            {
+                rbCelsius.IsChecked = true;
+            }
+        }
+
+        private void rbKelvin_Click(object sender, RoutedEventArgs e)
+        {
+            if (rbKelvin.IsChecked == true)
+            {
+                rbCelsius.IsChecked = false;
+                rbFahrenheit.IsChecked = false;
+            }
+            else
+            {
+                rbCelsius.IsChecked = true;
+            }
+        }
+
+
     }
 }

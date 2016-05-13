@@ -14,6 +14,10 @@
             <Setter Property="FontWeight" Value="SemiBold"></Setter>
             <Setter Property="FontSize" Value="20" />
         </Style>
+        <Style x:Key="PhoneTextNormalStyleTitle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+            <Setter Property="FontSize" Value="27" />
+        </Style>
         <Style x:Key="PhoneTextNormalStyleDate" TargetType="TextBlock">
             <Setter Property="FontSize" Value="25" />
         </Style>
@@ -44,7 +48,7 @@
         <!-- Title -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
             <TextBlock Text="ELIAS' WEATHER FORECAST APP" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="het weer" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="the weather" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
         <!-- Content -->
@@ -54,12 +58,12 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,-0.333,0">
 
-                    <TextBlock Margin="4"  Text="{Binding city.name}" Style="{StaticResource PhoneTextNormalStyle}"/>
-                    <TextBlock Margin="4" Text="{Binding city.country}" Style="{StaticResource PhoneTextNormalStyle}" />
+                    <TextBlock Margin="4"  Text="{Binding city.name}" Style="{StaticResource PhoneTextNormalStyleTitle}"/>
+                    <TextBlock Margin="4" Text="{Binding city.country}" Style="{StaticResource PhoneTextNormalStyleTitle}" />
 
 
                 </StackPanel>
-                <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="466">
+                <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="452">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="8" Background="{x:Null}" Opacity="1" >
@@ -75,31 +79,31 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">
-                        				<Run Text="Dag temperatuur:"/>
+                        				<Run Text="Day temperature:"/>
                                     </TextBlock>
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding temp.day}" />
-                                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />
+                                    <!--<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">
-                        				<Run Text="Nacht temperatuur:"/>
+                        				<Run Text="Night temperature:"/>
                                     </TextBlock>
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding temp.night}" />
-                                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />
+                                    <!--<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">
-                        				<Run Text="Minimum temperatuur:"/>
+                        				<Run Text="Minimum temperature:"/>
                                     </TextBlock>
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding temp.min}" />
-                                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />
+                                    <!--<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">
-                        				<Run Text="Maximum temperatuur:"/>
+                        				<Run Text="Maximum temperature:"/>
                                     </TextBlock>
                                     <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding temp.max}" />
-                                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />
+                                    <!--<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="°C" Margin="0,0,0,0" />-->
                                 </StackPanel>
 
 
