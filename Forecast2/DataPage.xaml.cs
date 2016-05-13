@@ -197,6 +197,13 @@ namespace Forecast2
 
         }
 
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+
+        }
+
         //private void OnGoBackClicked(object sender, RoutedEventArgs e)
         //{
         //    if (Frame.CanGoBack)

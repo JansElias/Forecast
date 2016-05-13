@@ -60,12 +60,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.ColumnSpan="2" Margin="0,0,-0.333,-78">
                 <StackPanel>
-                    <ProgressBar IsIndeterminate="true" Visibility="Collapsed" Name="pbLocation" />
                     <TextBlock FontSize="21">
                 		<Run Text="Enter City:"/>
                     </TextBlock>
                     <TextBox x:Name="txtPlaats"   Text="{Binding id, Mode=TwoWay}"/>
-                    
+                    <ProgressBar IsIndeterminate="True" Visibility="Collapsed" Name="pbLocation" />
                     <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click"  />
                     <Grid Grid.Row="1" x:Name="rbButtons">
                         <Grid.RowDefinitions>
@@ -99,7 +98,7 @@
                 </StackPanel>
 
 
-                <ProgressBar IsIndeterminate="true" Visibility="Collapsed" Name="pbWeather" />
+                <!--<ProgressBar IsIndeterminate="true" Visibility="Collapsed" Name="pbWeather" />
                 <StackPanel Name="spWeatherInfo" Margin="0,0,0,-193">
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,-0.333,0">
@@ -161,7 +160,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                </StackPanel>
+                </StackPanel>-->
 
 
 

@@ -8,6 +8,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Label="Map&#xD;&#xA;" Icon="Map" Click="AppBarButton_Click"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 
     <Page.Resources>
         <Style x:Key="PhoneTextNormalStyle" TargetType="TextBlock">
@@ -51,6 +58,8 @@
             <TextBlock Text="the weather" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
+        
+
         <!-- Content -->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <ProgressBar IsIndeterminate="true" Visibility="Collapsed" Name="pbWeather" />
@@ -63,7 +72,7 @@
 
 
                 </StackPanel>
-                <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="452">
+                <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="395">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="8" Background="{x:Null}" Opacity="1" >

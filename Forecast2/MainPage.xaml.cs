@@ -306,7 +306,7 @@ namespace Forecast2
 
         private async void btnGetLocation_Click(object sender, RoutedEventArgs e)
         {
-            pbWeather.Visibility = Visibility.Visible;
+            pbLocation.Visibility = Visibility.Visible;
             Geolocator geolocator = new Geolocator();
             Geoposition geoposition = await geolocator.GetGeopositionAsync();
  
@@ -317,7 +317,7 @@ namespace Forecast2
             txtPlaats.Text = fullAddress;
             }
 
-            pbWeather.Visibility = Visibility.Collapsed;
+            pbLocation.Visibility = Visibility.Collapsed;
 
             //Longitude.Text = position.Coordinate.Point.Position.Longitude.ToString();
             
