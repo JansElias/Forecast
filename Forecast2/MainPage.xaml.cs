@@ -19,6 +19,8 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Windows.UI.Popups;
 using Forecast2.Common;
+using Windows.Devices.Geolocation;
+using Windows.Services.Maps;
 
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -168,10 +170,10 @@ namespace Forecast2
                 App.WO.cityName = txtPlaats.Text;
 
                 var myList = new List<string>()
-            {
+                {
                 App.WO.cityName,
                 App.WO.tempMeter,
-            };
+                };
 
 
 
@@ -300,6 +302,25 @@ namespace Forecast2
             {
                 rbCelsius.IsChecked = true;
             }
+        }
+
+        private async void btnGetLocation_Click(object sender, RoutedEventArgs e)
+        {
+            pbWeather.Visibility = Visibility.Visible;
+            Geolocator geolocator = new Geolocator();
+            Geoposition geoposition = await geolocator.GetGeopositionAsync();
+ 
+            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAtAsync(geoposition.Coordinate.Point);
+            if (result.Status == MapLocationFinderStatus.Success){
+                MapAddress address = result.Locations.FirstOrDefault().Address;
+            string fullAddress = string.Format("{0}", address.Town);
+            txtPlaats.Text = fullAddress;
+            }
+
+            pbWeather.Visibility = Visibility.Collapsed;
+
+            //Longitude.Text = position.Coordinate.Point.Position.Longitude.ToString();
+            
         }
 
 
