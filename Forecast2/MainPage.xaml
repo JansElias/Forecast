@@ -60,12 +60,13 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.ColumnSpan="2" Margin="0,0,-0.333,-78">
                 <StackPanel>
+                    
                     <TextBlock FontSize="21">
                 		<Run Text="Enter City:"/>
                     </TextBlock>
                     <TextBox x:Name="txtPlaats"   Text="{Binding id, Mode=TwoWay}"/>
                     <ProgressBar IsIndeterminate="True" Visibility="Collapsed" Name="pbLocation" />
-                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click"  />
+                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click" />
                     <Grid Grid.Row="1" x:Name="rbButtons">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -78,9 +79,9 @@
                         </Grid.ColumnDefinitions>
                        
                         
-                        <RadioButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Celsius" x:Name="rbCelsius"  FontSize="20" IsChecked="True" Checked="rbCelsius_Checked" Click="rbCelsius_Click" />
-                        <RadioButton Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Content="Fahrenheit" x:Name="rbFahrenheit" Checked="rbFahrenheit_Checked" Click="rbFahrenheit_Click"/>
-                        <RadioButton Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Kelvin" x:Name="rbKelvin" Click="rbKelvin_Click" />
+                        <RadioButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Celsius (°C)" x:Name="rbCelsius"  FontSize="20" IsChecked="True" Checked="rbCelsius_Checked" Click="rbCelsius_Click" />
+                        <RadioButton Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Content="Fahrenheit  (°F)" x:Name="rbFahrenheit" Checked="rbFahrenheit_Checked" Click="rbFahrenheit_Click"/>
+                        <RadioButton Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Kelvin (K)" x:Name="rbKelvin" Click="rbKelvin_Click" />
                     </Grid>
 
 
