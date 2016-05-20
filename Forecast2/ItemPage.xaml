@@ -14,19 +14,14 @@
             <Setter Property="FontWeight" Value="SemiBold"></Setter>
             <Setter Property="FontSize" Value="20" />
         </Style>
-        <Style x:Key="PhoneTextNormalStyleTitle" TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="SemiBold"></Setter>
-            <Setter Property="FontSize" Value="27" />
-        </Style>
+       
         <Style x:Key="PhoneTextNormalStyleDate" TargetType="TextBlock">
             <Setter Property="FontSize" Value="25" />
         </Style>
-        <Style x:Key="PhoneTextNormalStyleWeather" TargetType="TextBlock">
+        
+        <Style x:Key="PhoneTextNormalStyleData" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20" />
-        </Style>
-        <Style x:Key="PhoneTextNormalStyleWeatherDesc" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontWeight" Value="Bold"></Setter>
+            
         </Style>
 
         <converter:DateConverter xmlns:converter="using:Forecast2" x:Key="DateConverter" />
@@ -68,65 +63,133 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="2">
-
+                <Image Source="Images/datetime.png" Height="30" Width="30"/>
                 <TextBlock Style="{StaticResource PhoneTextNormalStyleDate}" Text="{Binding dt, Converter={StaticResource DateConverter}}"  Margin="2" />
             </StackPanel>
 
+           
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
-                    <Run Text="City : "/>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding city.name}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
-                    <Run Text="City lon : "/>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding city.coord.lon}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
-                    <Run Text="City lat : "/>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding city.coord.lat}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
-                    <Run Text="County : "/>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding city[0].country}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
-                    <Run Text="Population : "/>
-                </TextBlock>
-
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding city.population}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="2">
-                <!--<Image Source="Images/temp.png" Height="30" Width="30"/>-->
+                <Image Source="Images/arrow.png" Height="15" Width="30"/>
                 <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
                     <Run Text="Weather : "/>
                 </TextBlock>
 
-                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2" Text="{Binding weather[0].main}" />
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding weather[0].main}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/arrow.png" Height="15" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Detailed: "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding weather[0].description}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Day tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.day}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Night tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.night}" />
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Morning tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.morn}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Evening tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.eve}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Max tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.max}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/temp.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Min tempearture : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding temp.min}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/pressure.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Pressure : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding pressure}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/humidity.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Humidity : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding humidity}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/wind.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Wind speed : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding speed}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="12" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/cloud.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Clouds : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding clouds}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="13" Orientation="Horizontal" Margin="2">
+                <Image Source="Images/rain.png" Height="30" Width="30"/>
+                <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   
+                    <Run Text="Rain : "/>
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PhoneTextNormalStyleData}" Margin="2" Text="{Binding rain}" />
             </StackPanel>
 
         </Grid>

@@ -131,9 +131,15 @@
     <Content Include="Images\1050_7.png" />
     <Content Include="Images\arrow.png" />
     <Content Include="Images\city.png" />
+    <Content Include="Images\cloud.png" />
     <Content Include="Images\date.png" />
+    <Content Include="Images\datetime.png" />
+    <Content Include="Images\humidity.png" />
     <Content Include="Images\place.png" />
+    <Content Include="Images\pressure.png" />
+    <Content Include="Images\rain.png" />
     <Content Include="Images\temp.png" />
+    <Content Include="Images\wind.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

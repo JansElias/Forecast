@@ -12,6 +12,7 @@
         <Style x:Key="PhoneTextNormalStyle" TargetType="TextBlock">
             <Setter Property="FontWeight" Value="SemiBold"></Setter>
             <Setter Property="FontSize" Value="20" />
+            
         </Style>
         <Style x:Key="PhoneTextNormalStyleTitle" TargetType="TextBlock">
             <Setter Property="FontWeight" Value="SemiBold"></Setter>

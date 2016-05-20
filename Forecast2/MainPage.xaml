@@ -61,12 +61,12 @@
             <StackPanel Grid.ColumnSpan="2" Margin="0,0,-0.333,-78">
                 <StackPanel>
                     
-                    <TextBlock FontSize="21">
+                    <TextBlock FontSize="28">
                 		<Run Text="Enter City:"/>
                     </TextBlock>
                     <TextBox x:Name="txtPlaats"   Text="{Binding id, Mode=TwoWay}"/>
                     <ProgressBar IsIndeterminate="True" Visibility="Collapsed" Name="pbLocation" />
-                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click" />
+                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click" Background="#FF121440" />
                     <Grid Grid.Row="1" x:Name="rbButtons">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -85,7 +85,7 @@
                     </Grid>
 
 
-                    <Button x:Name="btnGetData" Content="Get Weather Data" Click="btnGetData_Click" />
+                    <Button x:Name="btnGetData" Content="Get Weather Data" Click="btnGetData_Click" Background="#FF121440"/>
                     
 
 
