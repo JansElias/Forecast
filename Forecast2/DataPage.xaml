@@ -64,7 +64,7 @@
 
 
                 </StackPanel>
-                <ListView ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="395">
+                <ListView x:Name="dataListView" ItemsSource="{Binding list}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="0,0,-0.333,0" Height="395" ItemClick="dataListView_ItemClick" IsItemClickEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="8" Background="{x:Null}" Opacity="1" >

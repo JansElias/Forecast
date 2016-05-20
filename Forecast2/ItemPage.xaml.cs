@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Forecast2.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -18,7 +16,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Forecast2.Common;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -27,12 +24,12 @@ namespace Forecast2
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DataPage : Page
+    public sealed partial class ItemPage : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public DataPage()
+        public ItemPage()
         {
             this.InitializeComponent();
 
@@ -69,50 +66,18 @@ namespace Forecast2
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        /// 
-
-
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
+            
+            var list = (List)e.NavigationParameter;
+            //int index = Convert.ToInt32(selectedIndex);
+            //RSSItem item = rssFeed.Items[index];
+            //this.DefaultViewModel["Item"] = item;
+            
+            this.DefaultViewModel["Item"] = list;
 
-
-            //try
-            //{
-            //    using (HttpClient client = new HttpClient())
-            //    {
-            //        pbWeather.Visibility = Visibility.Visible;
-            //        client.BaseAddress = new Uri("http://api.openweathermap.org");
-
-            //        var url = "data/2.5/forecast/daily?q="+parameter+"&mode=json&units=metric&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
-
-            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //        HttpResponseMessage response = await client.GetAsync(String.Format(url));
-
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            var data = response.Content.ReadAsStringAsync();
-            //            var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
-
-            //            spWeatherInfo.DataContext = weatherdata;
-
-            //        }
-
-            //        pbWeather.Visibility = Visibility.Collapsed;
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-            //    //await dialog.ShowAsync();
-            //    pbWeather.Visibility = Visibility.Collapsed;
-            //    //}
-
-
-
-            //}
+            
         }
 
         /// <summary>
@@ -142,87 +107,16 @@ namespace Forecast2
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //this.navigationHelper.OnNavigatedTo(e);
-            //var parameter = e.Parameter;
-
-            var myList = e.Parameter as List<string>;
-
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    pbWeather.Visibility = Visibility.Visible;
-                    client.BaseAddress = new Uri("http://api.openweathermap.org");
-
-                    var url = "data/2.5/forecast/daily?q=" + myList[0] + "&mode=json&units=" + myList[1] + "&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
-
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage response = await client.GetAsync(String.Format(url));
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var data = response.Content.ReadAsStringAsync();
-                        var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
-
-                        spWeatherInfo.DataContext = weatherdata;
-
-                    }
-
-                    pbWeather.Visibility = Visibility.Collapsed;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-                //await dialog.ShowAsync();
-                pbWeather.Visibility = Visibility.Collapsed;
-                //}
-
-
-
-            }
+            this.navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            //this.navigationHelper.OnNavigatedFrom(e);
-
-            var myList = e.Parameter as List<string>;
-
+            this.navigationHelper.OnNavigatedFrom(e);
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-
-        }
-
-        private void dataListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-              
-            var listItem = (((List)e.ClickedItem));
-            
-            if (!Frame.Navigate(typeof(ItemPage), listItem))
-            {
-                throw new Exception("Navigation failed.");
-            }
-            
-              
-        }
-
-        //private void OnGoBackClicked(object sender, RoutedEventArgs e)
-        //{
-        //    if (Frame.CanGoBack)
-        //    {
-        //        Frame.GoBack();
-        //    }
-
-        //}
         #endregion
     }
 }
