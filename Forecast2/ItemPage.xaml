@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding DefaultViewModel.Item, RelativeSource={RelativeSource Mode=Self}}">
 
     <Page.Resources>
@@ -14,18 +13,24 @@
             <Setter Property="FontWeight" Value="SemiBold"></Setter>
             <Setter Property="FontSize" Value="20" />
         </Style>
-       
+
         <Style x:Key="PhoneTextNormalStyleDate" TargetType="TextBlock">
             <Setter Property="FontSize" Value="25" />
         </Style>
-        
+
         <Style x:Key="PhoneTextNormalStyleData" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20" />
-            
+
         </Style>
 
         <converter:DateConverter xmlns:converter="using:Forecast2" x:Key="DateConverter" />
     </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0.142"/>
+            <GradientStop Color="#FF2D6580" Offset="0.617"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
 
     <Grid x:Name="LayoutRoot">
@@ -73,7 +78,7 @@
                 <TextBlock Style="{StaticResource PhoneTextNormalStyleDate}" Text="{Binding dt, Converter={StaticResource DateConverter}}"  Margin="2" />
             </StackPanel>
 
-           
+
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="2">
                 <Image Source="Images/arrow.png" Height="15" Width="30"/>
                 <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="2">                   

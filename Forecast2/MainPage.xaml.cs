@@ -21,6 +21,9 @@ using Windows.UI.Popups;
 using Forecast2.Common;
 using Windows.Devices.Geolocation;
 using Windows.Services.Maps;
+using System.Net.NetworkInformation;
+using Windows.Networking.Connectivity;
+
 
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -77,6 +80,11 @@ namespace Forecast2
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
+            
+
+
+
             if (App.WO.cityName != null)
             {
                 txtPlaats.Text = App.WO.cityName;
@@ -144,32 +152,36 @@ namespace Forecast2
         private async void btnGetData_Click(object sender, RoutedEventArgs e)
         {
 
-            if (txtPlaats.Text == "")
-            {
-                MessageDialog msgbox = new MessageDialog("No city was found.");
-                await msgbox.ShowAsync();
-            }
-            else
-            {
-                App.WO.tempMeter = "celsius";
-
-                if (rbFahrenheit.IsChecked == true)
+            
+                if (txtPlaats.Text == "")
                 {
-                    App.WO.tempMeter = "imperial";
+                    MessageDialog msgbox = new MessageDialog("No city was found.");
+                    await msgbox.ShowAsync();
                 }
-                if (rbCelsius.IsChecked == true)
+                else
                 {
-                    App.WO.tempMeter = "metric";
-                }
-                if (rbKelvin.IsChecked == true)
-                {
-                    App.WO.tempMeter = "";
-                }
+                    App.WO.tempMeter = "celsius";
+
+                    if (rbFahrenheit.IsChecked == true)
+                    {
+                        App.WO.tempMeter = "imperial";
+
+                    }
+                    if (rbCelsius.IsChecked == true)
+                    {
+                        App.WO.tempMeter = "metric";
+
+                    }
+                    if (rbKelvin.IsChecked == true)
+                    {
+                        App.WO.tempMeter = "";
+
+                    }
 
 
-                App.WO.cityName = txtPlaats.Text;
+                    App.WO.cityName = txtPlaats.Text;
 
-                var myList = new List<string>()
+                    var myList = new List<string>()
                 {
                 App.WO.cityName,
                 App.WO.tempMeter,
@@ -177,56 +189,13 @@ namespace Forecast2
 
 
 
-                Frame.Navigate(typeof(DataPage), myList);
-            }
-
+                    Frame.Navigate(typeof(DataPage), myList);
+                }
+            
             
 
 
-            //if (!Frame.Navigate(typeof(DataPage), city))
-            //{
-            //    throw new Exception("Navigation failed.");
-            //}
-
-
-            //try
-            //{
-            //    using (HttpClient client = new HttpClient())
-            //    {
-            //        pbWeather.Visibility = Visibility.Visible;
-            //        client.BaseAddress = new Uri("http://api.openweathermap.org");
-
-            //        var url = "data/2.5/forecast/daily?q="+city+"&mode=json&units="+tempMeter+"&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
-
-            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //        HttpResponseMessage response = await client.GetAsync(String.Format(url));
-
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            var data = response.Content.ReadAsStringAsync();
-            //            var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
-
-            //            spWeatherInfo.DataContext = weatherdata;
-
-            //        }
-
-            //        pbWeather.Visibility = Visibility.Collapsed;
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-            //    //await dialog.ShowAsync();
-            //    pbWeather.Visibility = Visibility.Collapsed;
-            //    //}
-
-
-
-            //}
-
-
+            
 
         }
 
@@ -242,27 +211,10 @@ namespace Forecast2
 
         private void rbCelsius_Checked(object sender, RoutedEventArgs e)
         {
-            //if (rbCelsius.IsChecked == true)
-            //{
-            //    rbFahrenheit.IsChecked = false;
-            //}
-            //else
-            //{
-            //    rbCelsius.IsChecked = true;
-            //}
-            
         }
 
         private void rbFahrenheit_Checked(object sender, RoutedEventArgs e)
         {
-            //if (rbFahrenheit.IsChecked == true)
-            //{
-            //    rbCelsius.IsChecked = false;
-            //}
-            //else
-            //{
-            //    rbCelsius.IsChecked = true;
-            //}
         }
 
         private void rbCelsius_Click(object sender, RoutedEventArgs e)
@@ -306,22 +258,38 @@ namespace Forecast2
 
         private async void btnGetLocation_Click(object sender, RoutedEventArgs e)
         {
-            pbLocation.Visibility = Visibility.Visible;
-            Geolocator geolocator = new Geolocator();
-            Geoposition geoposition = await geolocator.GetGeopositionAsync();
- 
-            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAtAsync(geoposition.Coordinate.Point);
-            if (result.Status == MapLocationFinderStatus.Success){
-                MapAddress address = result.Locations.FirstOrDefault().Address;
-            string fullAddress = string.Format("{0}", address.Town);
-            txtPlaats.Text = fullAddress;
+            LocationService service = new LocationService();
+
+            var locationActive = service.IsLocationServiceEnabled.ToString();
+
+            if (locationActive == "True")
+            {
+                pbLocation.Visibility = Visibility.Visible;
+                Geolocator geolocator = new Geolocator();
+                Geoposition geoposition = await geolocator.GetGeopositionAsync();
+
+                MapLocationFinderResult result = await MapLocationFinder.FindLocationsAtAsync(geoposition.Coordinate.Point);
+                if (result.Status == MapLocationFinderStatus.Success)
+                {
+                    MapAddress address = result.Locations.FirstOrDefault().Address;
+                    string fullAddress = string.Format("{0}", address.Town);
+                    txtPlaats.Text = fullAddress;
+                }
+
+                pbLocation.Visibility = Visibility.Collapsed;
             }
+            else
+            {
+                MessageDialog msgbox = new MessageDialog("Please activate Location for navigation");
+                await msgbox.ShowAsync();
+            }
+            
 
-            pbLocation.Visibility = Visibility.Collapsed;
 
-            //Longitude.Text = position.Coordinate.Point.Position.Longitude.ToString();
             
         }
+
+        
 
 
     }

@@ -5,8 +5,7 @@
     xmlns:local="using:Forecast2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <Style x:Key="PhoneTextNormalStyle" TargetType="TextBlock">
@@ -28,6 +27,12 @@
 
 
     </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0.142"/>
+            <GradientStop Color="#FF2D6580" Offset="0.617"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
 
     <Grid x:Name="LayoutRoot">
@@ -60,13 +65,13 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.ColumnSpan="2" Margin="0,0,-0.333,-78">
                 <StackPanel>
-                    
+
                     <TextBlock FontSize="28">
                 		<Run Text="Enter City:"/>
                     </TextBlock>
                     <TextBox x:Name="txtPlaats"   Text="{Binding id, Mode=TwoWay}"/>
                     <ProgressBar IsIndeterminate="True" Visibility="Collapsed" Name="pbLocation" />
-                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click" Background="#FF121440" />
+                    <Button x:Name="btnGetLocation" Content="Get Current Location" Click="btnGetLocation_Click"  />
                     <Grid Grid.Row="1" x:Name="rbButtons">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -75,35 +80,19 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
-                           
+
                         </Grid.ColumnDefinitions>
-                       
-                        
+
+
                         <RadioButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Celsius (°C)" x:Name="rbCelsius"  FontSize="20" IsChecked="True" Checked="rbCelsius_Checked" Click="rbCelsius_Click" />
                         <RadioButton Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Content="Fahrenheit  (°F)" x:Name="rbFahrenheit" Checked="rbFahrenheit_Checked" Click="rbFahrenheit_Click"/>
                         <RadioButton Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Kelvin (K)" x:Name="rbKelvin" Click="rbKelvin_Click" />
                     </Grid>
 
 
-                    <Button x:Name="btnGetData" Content="Get Weather Data" Click="btnGetData_Click" Background="#FF121440"/>
-                    
-
-
-
-
-
-
-
-
+                    <Button x:Name="btnGetData" Content="Get Weather Data" Click="btnGetData_Click" />
 
                 </StackPanel>
-
-
-                
-
-
-
-
 
 
             </StackPanel>

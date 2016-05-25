@@ -13,7 +13,7 @@ using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Controls.Primitives; 
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -74,45 +74,7 @@ namespace Forecast2
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-
-
-
-            //try
-            //{
-            //    using (HttpClient client = new HttpClient())
-            //    {
-            //        pbWeather.Visibility = Visibility.Visible;
-            //        client.BaseAddress = new Uri("http://api.openweathermap.org");
-
-            //        var url = "data/2.5/forecast/daily?q="+parameter+"&mode=json&units=metric&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
-
-            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //        HttpResponseMessage response = await client.GetAsync(String.Format(url));
-
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            var data = response.Content.ReadAsStringAsync();
-            //            var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
-
-            //            spWeatherInfo.DataContext = weatherdata;
-
-            //        }
-
-            //        pbWeather.Visibility = Visibility.Collapsed;
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-            //    //await dialog.ShowAsync();
-            //    pbWeather.Visibility = Visibility.Collapsed;
-            //    //}
-
-
-
-            //}
+             
         }
 
         /// <summary>
@@ -142,50 +104,28 @@ namespace Forecast2
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
+        /// 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //this.navigationHelper.OnNavigatedTo(e);
-            //var parameter = e.Parameter;
-
             var myList = e.Parameter as List<string>;
-
-            try
+            
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpClient client = new HttpClient())
+                pbWeather.Visibility = Visibility.Visible;
+                client.BaseAddress = new Uri("http://api.openweathermap.org");
+                var url = "data/2.5/forecast/daily?q=" + myList[0] + "&mode=json&units=" + myList[1] + "&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
+                HttpResponseMessage response = await client.GetAsync(String.Format(url));
+                if (response.IsSuccessStatusCode)
                 {
-                    pbWeather.Visibility = Visibility.Visible;
-                    client.BaseAddress = new Uri("http://api.openweathermap.org");
-
-                    var url = "data/2.5/forecast/daily?q=" + myList[0] + "&mode=json&units=" + myList[1] + "&cnt=7&APPID=9ddd4403f5f5ee8c9504363e8908598d";
-
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage response = await client.GetAsync(String.Format(url));
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var data = response.Content.ReadAsStringAsync();
-                        var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
-
-                        spWeatherInfo.DataContext = weatherdata;
-
-                    }
-
-                    pbWeather.Visibility = Visibility.Collapsed;
-
+                    var data = response.Content.ReadAsStringAsync();
+                    var weatherdata = JsonConvert.DeserializeObject<WeatherObject>(data.Result.ToString());
+                    spWeatherInfo.DataContext = weatherdata;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageDialog dialog = new MessageDialog("Some Error Has Occured");
-                //await dialog.ShowAsync();
                 pbWeather.Visibility = Visibility.Collapsed;
-                //}
-
-
-
-            }
+                }
+           
         }
+
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -195,12 +135,7 @@ namespace Forecast2
 
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-
-        }
+        
 
         private void dataListView_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -215,14 +150,20 @@ namespace Forecast2
               
         }
 
-        //private void OnGoBackClicked(object sender, RoutedEventArgs e)
-        //{
-        //    if (Frame.CanGoBack)
-        //    {
-        //        Frame.GoBack();
-        //    }
-
-        //}
+        
         #endregion
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Frame.Navigate(typeof(MapPage)))
+            {
+                throw new Exception("Navigation failed.");
+            }
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MapPage2));
+        }
     }
 }

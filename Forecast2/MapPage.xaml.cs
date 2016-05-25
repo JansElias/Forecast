@@ -7,7 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
-using Windows.UI.Popups;
+using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
+
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Forecast2
@@ -24,12 +26,12 @@ namespace Forecast2
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ItemPage : Page
+    public sealed partial class MapPage : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public ItemPage()
+        public MapPage()
         {
             this.InitializeComponent();
 
@@ -66,10 +68,8 @@ namespace Forecast2
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var list = (List)e.NavigationParameter;
-            this.DefaultViewModel["Item"] = list; 
         }
 
         /// <summary>
@@ -110,5 +110,19 @@ namespace Forecast2
         }
 
         #endregion
+
+        private void mymap_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void WebView_Loaded(object sender, RoutedEventArgs e)
+        {
+            //webView.Source = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx-web:///Assets/HTML/map.html"));
+            
+            //= new Uri("ms-appx-web:///assets/HTML/map.html");
+
+            
+        }
     }
 }

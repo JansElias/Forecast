@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,12 +24,12 @@ namespace Forecast2
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ItemPage : Page
+    public sealed partial class MapPage2 : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public ItemPage()
+        public MapPage2()
         {
             this.InitializeComponent();
 
@@ -68,8 +68,29 @@ namespace Forecast2
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var list = (List)e.NavigationParameter;
-            this.DefaultViewModel["Item"] = list; 
+
+
+            //var myList = e.Parameter as List<string>;
+
+            Geolocator geolocator = new Geolocator();
+            Geoposition geoposition = null;
+            try
+            {
+                geoposition = await geolocator.GetGeopositionAsync();
+            }
+            catch (Exception ex)
+            {
+                // Handle errors like unauthorized access to location
+                // services or no Internet access.
+            }
+            mymap.Center = geoposition.Coordinate.Point;
+            mymap.ZoomLevel = 15;
+
+            //mymap.Center = new Geopoint(new BasicGeoposition()
+            //{
+            //    Latitude = (App.WO.city.coord.lat),
+            //    Longitude = (App.WO.city.coord.lon)
+            //});
         }
 
         /// <summary>
@@ -83,6 +104,11 @@ namespace Forecast2
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
         }
+
+       
+
+        
+   
 
         #region NavigationHelper registration
 
@@ -99,7 +125,7 @@ namespace Forecast2
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
         }
